@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedir orçamento · Marcone Otávio</title>
+<meta name="description" content="Monte seu pedido de orçamento de foto e filme em poucos passos.">
+<link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
+<link rel="apple-touch-icon" href="logos/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0c0e;--panel:#14181e;--fg:#ececec;--muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.12);--accent:#89cff0;--ink:#0b0c0e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.5 Syne,system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 0% 0%,rgba(137,207,240,.14),transparent 70%);z-index:-1}
+a{color:inherit}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line)}
+.top a.back{text-decoration:none;font-size:14px;font-weight:600}
+.top a.back:hover{color:var(--accent)}
+.top img{height:24px;width:auto}
+.wrap{width:min(640px,100% - 32px);margin:0 auto;padding:28px 0 60px}
+.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:10px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .35s}
+.step-n{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+h1{font-family:"League Gothic",sans-serif;font-weight:400;font-size:clamp(44px,8vw,64px);text-transform:uppercase;line-height:.95;margin-bottom:10px}
+.lead{color:var(--muted);margin-bottom:24px;font-size:15px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.opts.one{grid-template-columns:1fr}
+.opt{background:var(--panel);border:1px solid var(--line);color:var(--fg);border-radius:14px;padding:15px 16px;text-align:left;font:600 15px Syne,sans-serif;cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+.opt:hover{border-color:rgba(137,207,240,.6);transform:translateY(-1px)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:rgba(137,207,240,.12);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:3px}
+label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px}
+input,textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:13px 14px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus{outline:1px solid var(--accent);border-color:var(--accent)}
+.nav{display:flex;gap:10px;margin-top:26px}
+.btn{flex:1;background:var(--accent);color:var(--ink);border:0;border-radius:999px;padding:14px 20px;font:700 15px Syne,sans-serif;cursor:pointer}
+.btn.ghost{flex:0 0 auto;background:transparent;color:var(--fg);border:1px solid var(--line);padding:14px 22px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.hint{color:var(--muted);font-size:13px;margin-top:10px}
+.err{color:#ff9b8a;font-size:13px;margin-top:10px;min-height:1em}
+.sum{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:22px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.sum div:last-child{border-bottom:0}
+.sum span:first-child{color:var(--muted)}
+.sum span:last-child{text-align:right}
+.done{text-align:center;padding:30px 0}
+.done h1{font-size:56px}
+.hide{display:none}
+@media (max-width:480px){.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="back" href="index.html">← Voltar ao site</a>
+  <img src="logos/conemaker-horizontal.png" alt="coneMaker">
+</header>
+
+<main class="wrap">
+  <div class="bar"><i id="bar" style="width:0"></i></div>
+  <p class="step-n" id="stepn"></p>
+  <div id="stage"></div>
+  <div class="nav" id="nav"></div>
+  <p class="err" id="err"></p>
+</main>
+
+<script>
+  const WHATSAPP = '5579996813130';
+  const STEPS = [
+    { id: 'tipo', title: 'Qual é o tipo de trabalho?', lead: 'Escolha o que mais se parece com o seu evento.', type: 'one',
+      options: [['Casamento'], ['Show ou festival'], ['Aniversário'], ['Formatura'], ['Evento corporativo'], ['Evento esportivo'], ['Ensaio ou gestante'], ['Outro']] },
+    { id: 'entregas', title: 'O que você precisa?', lead: 'Pode marcar mais de uma opção.', type: 'multi',
+      options: [['Fotos'], ['Vídeo'], ['Filme completo'], ['Reels e cortes para redes'], ['Drone'], ['Álbum ou impressão'], ['Só a cobertura, sem edição']] },
+    { id: 'cobertura', title: 'Por quanto tempo?', lead: 'Uma estimativa já ajuda.', type: 'one',
+      options: [['Até 2 horas'], ['Cerca de 4 horas'], ['Cerca de 6 horas'], ['Dia inteiro'], ['Mais de um dia'], ['Ainda não sei']] },
+    { id: 'data', title: 'Quando será?', lead: 'Se ainda não tiver data, escolha a opção abaixo.', type: 'date' },
+    { id: 'local', title: 'Onde será?', lead: 'Cidade e nome do local, se já souber.', type: 'text', field: 'local', placeholder: 'Ex.: Aracaju, Espaço Exemplo' },
+    { id: 'contato', title: 'Como falamos com você?', lead: 'Seus dados vão direto para o WhatsApp do Marcone.', type: 'contact' },
+    { id: 'obs', title: 'Mais alguma coisa?', lead: 'Opcional. Conte detalhes, ideias ou dúvidas.', type: 'textarea', field: 'obs', placeholder: 'Ex.: tenho uma ideia de roteiro, preciso de entrega rápida...' },
+    { id: 'resumo', title: 'Confira seu pedido', lead: 'Se estiver tudo certo, envie. A conversa abre no WhatsApp com o pedido pronto.', type: 'summary' },
+  ];
+  const answers = { tipo: '', entregas: [], cobertura: '', data: '', dataIndefinida: false, local: '', nome: '', whats: '', obs: '' };
+  let step = 0;
+
+  const $ = id => document.getElementById(id);
+  const stage = $('stage');
+
+  function setProgress() {
+    $('bar').style.width = ((step) / (STEPS.length - 1) * 100) + '%';
+    $('stepn').textContent = `Passo ${step + 1} de ${STEPS.length}`;
+  }
+
+  function render() {
+    const s = STEPS[step];
+    setProgress();
+    $('err').textContent = '';
+    let html = `<h1>${s.title}</h1><p class="lead">${s.lead}</p>`;
+
+    if (s.type === 'one' || s.type === 'multi') {
+      html += `<div class="opts ${s.options.length > 6 ? '' : ''}">` + s.options.map(([label]) => {
+        const on = s.type === 'one' ? answers[s.id] === label : answers[s.id].includes(label);
+        return `<button class="opt" type="button" data-v="${label}" aria-pressed="${on}">${label}</button>`;
+      }).join('') + '</div>';
+    }
+    if (s.type === 'date') {
+      html += `<label for="d">Data do evento</label><input id="d" type="date" value="${answers.data}" ${answers.dataIndefinida ? 'disabled' : ''}>
+        <div class="opts one" style="margin-top:14px"><button class="opt" type="button" id="ind" aria-pressed="${answers.dataIndefinida}">Ainda não tenho data</button></div>`;
+    }
+    if (s.type === 'text') html += `<label for="f">${s.title}</label><input id="f" placeholder="${s.placeholder}" value="${esc(answers[s.field])}">`;
+    if (s.type === 'textarea') html += `<label for="f">Mensagem</label><textarea id="f" placeholder="${s.placeholder}">${esc(answers[s.field])}</textarea>`;
+    if (s.type === 'contact') html += `<label for="n">Seu nome</label><input id="n" autocomplete="name" value="${esc(answers.nome)}" placeholder="Nome e sobrenome">
+        <label for="w">Seu WhatsApp (com DDD)</label><input id="w" inputmode="tel" autocomplete="tel" value="${esc(answers.whats)}" placeholder="(79) 9 9999-9999">`;
+    if (s.type === 'summary') html += summary();
+
+    stage.innerHTML = html;
+    bindStage(s);
+    renderNav(s);
+  }
+
+  function summary() {
+    const rows = [
+      ['Tipo', answers.tipo || '—'],
+      ['O que precisa', answers.entregas.join(', ') || '—'],
+      ['Duração', answers.cobertura || '—'],
+      ['Data', answers.dataIndefinida ? 'Ainda não definida' : (answers.data ? fmtData(answers.data) : '—')],
+      ['Local', answers.local || '—'],
+      ['Nome', answers.nome || '—'],
+      ['WhatsApp', answers.whats || '—'],
+    ];
+    return `<div class="sum">${rows.map(([a, b]) => `<div><span>${a}</span><span>${esc(b)}</span></div>`).join('')}</div>`;
+  }
+
+  function bindStage(s) {
+    stage.querySelectorAll('.opt[data-v]').forEach(b => b.onclick = () => {
+      const v = b.dataset.v;
+      if (s.type === 'one') answers[s.id] = v;
+      else answers[s.id] = answers[s.id].includes(v) ? answers[s.id].filter(x => x !== v) : [...answers[s.id], v];
+      render();
+    });
+    const ind = $('ind');
+    if (ind) ind.onclick = () => { answers.dataIndefinida = !answers.dataIndefinida; if (answers.dataIndefinida) answers.data = ''; render(); };
+    const d = $('d');
+    if (d) d.oninput = () => { answers.data = d.value; answers.dataIndefinida = false; };
+    const f = $('f');
+    if (f) f.oninput = () => { answers[s.field] = f.value; };
+    const n = $('n'), w = $('w');
+    if (n) n.oninput = () => { answers.nome = n.value; };
+    if (w) w.oninput = () => { answers.whats = w.value; };
+  }
+
+  function renderNav(s) {
+    const last = step === STEPS.length - 1;
+    const isOpt = s.type === 'one' || s.type === 'multi';
+    const canNext = validate(s, false);
+    $('nav').innerHTML =
+      (step > 0 ? `<button class="btn ghost" type="button" id="back">Voltar</button>` : '') +
+      (last
+        ? `<button class="btn" type="button" id="send">Enviar pelo WhatsApp</button>`
+        : `<button class="btn" type="button" id="next" ${canNext ? '' : 'disabled'}>${isOpt && s.type === 'multi' && !answers.entregas.length ? 'Pular' : 'Continuar'}</button>`);
+    const back = $('back'); if (back) back.onclick = () => { step--; render(); window.scrollTo(0, 0); };
+    const next = $('next'); if (next) next.onclick = () => go(s);
+    const send = $('send'); if (send) send.onclick = () => sendWhats();
+    // seleção única avança sozinha ao escolher
+    if (s.type === 'one') stage.querySelectorAll('.opt[data-v]').forEach(b => b.addEventListener('click', () => setTimeout(() => go(s), 180), { once: true }));
+    stage.querySelectorAll('input, textarea').forEach(inp => inp.addEventListener('input', () => {
+      const nb = $('next'); if (nb) nb.disabled = !validate(s, false);
+    }));
+  }
+
+  function validate(s, show) {
+    if (s.type === 'one') return !!answers[s.id];
+    if (s.type === 'multi') return true; // pode pular
+    if (s.type === 'date') return !!answers.data || answers.dataIndefinida;
+    if (s.type === 'text') return true;
+    if (s.type === 'textarea') return true;
+    if (s.type === 'contact') {
+      const nomeOk = answers.nome.trim().length >= 3;
+      const digits = answers.whats.replace(/\D/g, '');
+      const zapOk = digits.length >= 10 && digits.length <= 13;
+      if (show && !nomeOk) $('err').textContent = 'Informe seu nome.';
+      else if (show && !zapOk) $('err').textContent = 'Informe um WhatsApp com DDD.';
+      return nomeOk && zapOk;
+    }
+    return true;
+  }
+
+  function go(s) {
+    if (s.type === 'contact') {
+      const ok = validate(s, true);
+      if (!ok) { const n = $('next'); if (n) n.disabled = true; return; }
+    }
+    step++;
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  function fmtData(iso) {
+    const [y, m, d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+  function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  function message() {
+    const linhas = [
+      'Olá, Marcone! Quero um orçamento.',
+      '',
+      `*Tipo:* ${answers.tipo || '—'}`,
+      `*Preciso de:* ${answers.entregas.join(', ') || '—'}`,
+      `*Duração:* ${answers.cobertura || '—'}`,
+      `*Data:* ${answers.dataIndefinida ? 'ainda não definida' : (answers.data ? fmtData(answers.data) : '—')}`,
+      `*Local:* ${answers.local || '—'}`,
+      '',
+      `*Nome:* ${answers.nome}`,
+      `*WhatsApp:* ${answers.whats}`,
+    ];
+    if (answers.obs.trim()) linhas.push('', `*Mensagem:* ${answers.obs.trim()}`);
+    return linhas.join('\n');
+  }
+
+  function sendWhats() {
+    const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message())}`;
+    stage.innerHTML = `<div class="done"><h1>Pedido pronto</h1><p class="lead">Abra o WhatsApp para enviar. Se a conversa não abrir sozinha, use o botão abaixo.</p></div>`;
+    $('nav').innerHTML = `<a class="btn" href="${url}" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;display:block">Abrir WhatsApp</a>`;
+    $('bar').style.width = '100%';
+    window.open(url, '_blank', 'noopener');
+  }
+
+  // os textos digitados também ficam no passo de observações, que é o último campo de texto
+  render();
+</script>
+</body>
+</html>
