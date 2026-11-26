@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galeria · Marcone Otávio</title>
+<meta name="description" content="Galeria de fotos de shows, casamentos, eventos e aniversários por Marcone Otávio.">
+<link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
+<link rel="apple-touch-icon" href="logos/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#121110;--fg:#ececec;--accent:#c2410c;--muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.12);--glass:rgba(28,26,24,.6)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 Syne,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 0% 30%,rgba(194,65,12,.18),transparent 70%);z-index:-1}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.top{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(1100px,100% - 32px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:8px 8px 8px 24px;border-radius:999px;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);z-index:40}
+.top .links{display:flex;gap:26px;font-size:14.5px;font-weight:600}
+.top .links a:hover{color:var(--accent)}
+.brand img{height:24px;width:auto;display:block}
+.top .right{display:flex;justify-content:flex-end}
+.btn{display:inline-flex;align-items:center;background:var(--accent);color:#fff;font-size:13.5px;font-weight:700;padding:11px 20px;border-radius:999px;white-space:nowrap}
+main{padding:140px 0 100px}
+h1{font-family:"League Gothic",Oswald,"Arial Narrow",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(70px,11vw,150px);line-height:.85}
+.tabs{display:flex;flex-wrap:wrap;gap:8px 26px;margin:26px 0 56px;font-size:15px;color:var(--muted)}
+.tabs a{padding-bottom:6px;border-bottom:2px solid transparent;transition:color .2s}
+.tabs a:hover{color:var(--fg)}
+.tabs a.on{color:var(--fg);border-color:var(--accent);font-weight:600}
+.group{margin-bottom:64px;scroll-margin-top:110px}
+.g-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:16px}
+.g-head h2{font-size:clamp(20px,2.2vw,26px);font-weight:600}
+.g-meta{color:var(--muted);font-size:13px;white-space:nowrap}
+/* linhas justificadas: cada foto cresce na proporção dela, todas com a mesma altura */
+.jg{display:flex;flex-wrap:wrap;gap:10px}
+.jg::after{content:"";flex-grow:999999}
+.jg a{flex:var(--r) 1 calc(var(--r) * 300px);height:300px;border-radius:14px;overflow:hidden;display:block;background:#1d1b19}
+.jg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.jg a:hover img{transform:scale(1.03)}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer nav{display:flex;flex-wrap:wrap;gap:10px 22px;color:var(--fg)}
+@media (max-width:900px){.top .links{display:none}.top{grid-template-columns:1fr auto}.top .brand{order:-1}}
+@media (max-width:700px){.top{top:10px;padding-left:16px}.brand img{height:19px}.btn{font-size:12.5px;padding:9px 14px}.jg a{flex-basis:calc(var(--r) * 150px);height:150px}.g-head{flex-direction:column;gap:2px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <nav class="links"><a href="index.html#fotografia">Trabalhos</a><a href="index.html#video">Vídeo</a><a href="index.html#sobre">Sobre</a></nav>
+  <a href="index.html" class="brand"><img src="logos/conemaker-horizontal.png" alt="coneMaker, de Marcone Otávio"></a>
+  <div class="right"><a href="index.html#contato" class="btn">Orçar um projeto</a></div>
+</header>
+<main class="wrap">
+  <h1 id="titulo">Shows</h1>
+  <nav class="tabs"><a href="#shows" data-cat="shows">Shows</a><a href="#casamentos" data-cat="casamentos">Casamentos</a><a href="#eventos" data-cat="eventos">Eventos</a><a href="#aniversarios" data-cat="aniversarios">Aniversários</a></nav>
+<section class="cat" id="cat-shows" data-label="Shows" hidden>
+<div class="group"><div class="g-head"><h2>Gusttavo Lima</h2></div>
+<div class="jg">
+<a href="fotos/shows/gusttavo-lima-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/gusttavo-lima-1.jpg" alt="Gusttavo Lima" loading="lazy"></a>
+<a href="fotos/shows/gusttavo-lima-2.jpg" target="_blank" rel="noopener" style="--r:0.662"><img src="fotos/shows/gusttavo-lima-2.jpg" alt="Gusttavo Lima" loading="lazy"></a>
+<a href="fotos/shows/gusttavo-lima-3.jpg" target="_blank" rel="noopener" style="--r:0.678"><img src="fotos/shows/gusttavo-lima-3.jpg" alt="Gusttavo Lima" loading="lazy"></a>
+<a href="fotos/shows/gusttavo-lima-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/gusttavo-lima-4.jpg" alt="Gusttavo Lima" loading="lazy"></a>
+<a href="fotos/shows/gusttavo-lima-5.jpg" target="_blank" rel="noopener" style="--r:0.647"><img src="fotos/shows/gusttavo-lima-5.jpg" alt="Gusttavo Lima" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Wesley Safadão</h2></div>
+<div class="jg">
+<a href="fotos/shows/show1-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show1-4.jpg" alt="Wesley Safadão" loading="lazy"></a>
+<a href="fotos/shows/show1-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show1-5.jpg" alt="Wesley Safadão" loading="lazy"></a>
+<a href="fotos/shows/wesley-safadao-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/wesley-safadao-1.jpg" alt="Wesley Safadão" loading="lazy"></a>
+<a href="fotos/shows/wesley-safadao-2.jpg" target="_blank" rel="noopener" style="--r:0.686"><img src="fotos/shows/wesley-safadao-2.jpg" alt="Wesley Safadão" loading="lazy"></a>
+<a href="fotos/shows/wesley-safadao-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/wesley-safadao-3.jpg" alt="Wesley Safadão" loading="lazy"></a>
+<a href="fotos/shows/wesley-safadao-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/wesley-safadao-4.jpg" alt="Wesley Safadão" loading="lazy"></a>
+<a href="fotos/shows/wesley-safadao-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/wesley-safadao-5.jpg" alt="Wesley Safadão" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Henrique &amp; Juliano</h2></div>
+<div class="jg">
+<a href="fotos/shows/henrique-e-juliano-1.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/henrique-e-juliano-1.jpg" alt="Henrique &amp; Juliano" loading="lazy"></a>
+<a href="fotos/shows/henrique-e-juliano-2.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/henrique-e-juliano-2.jpg" alt="Henrique &amp; Juliano" loading="lazy"></a>
+<a href="fotos/shows/henrique-e-juliano-3.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/henrique-e-juliano-3.jpg" alt="Henrique &amp; Juliano" loading="lazy"></a>
+<a href="fotos/shows/henrique-e-juliano-4.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/henrique-e-juliano-4.jpg" alt="Henrique &amp; Juliano" loading="lazy"></a>
+<a href="fotos/shows/henrique-e-juliano-5.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/henrique-e-juliano-5.jpg" alt="Henrique &amp; Juliano" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Mano Walter</h2></div>
+<div class="jg">
+<a href="fotos/shows/mano-walter-1.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/mano-walter-1.jpg" alt="Mano Walter" loading="lazy"></a>
+<a href="fotos/shows/mano-walter-2.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/mano-walter-2.jpg" alt="Mano Walter" loading="lazy"></a>
+<a href="fotos/shows/mano-walter-3.jpg" target="_blank" rel="noopener" style="--r:0.679"><img src="fotos/shows/mano-walter-3.jpg" alt="Mano Walter" loading="lazy"></a>
+<a href="fotos/shows/mano-walter-4.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/mano-walter-4.jpg" alt="Mano Walter" loading="lazy"></a>
+<a href="fotos/shows/mano-walter-5.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/mano-walter-5.jpg" alt="Mano Walter" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Nattan</h2></div>
+<div class="jg">
+<a href="fotos/shows/nattan-1.jpg" target="_blank" rel="noopener" style="--r:0.705"><img src="fotos/shows/nattan-1.jpg" alt="Nattan" loading="lazy"></a>
+<a href="fotos/shows/nattan-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/nattan-2.jpg" alt="Nattan" loading="lazy"></a>
+<a href="fotos/shows/nattan-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/nattan-3.jpg" alt="Nattan" loading="lazy"></a>
+<a href="fotos/shows/nattan-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/nattan-4.jpg" alt="Nattan" loading="lazy"></a>
+<a href="fotos/shows/nattan-5.jpg" target="_blank" rel="noopener" style="--r:0.647"><img src="fotos/shows/nattan-5.jpg" alt="Nattan" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Zé Vaqueiro</h2></div>
+<div class="jg">
+<a href="fotos/shows/show1-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show1-2.jpg" alt="Zé Vaqueiro" loading="lazy"></a>
+<a href="fotos/shows/ze-vaqueiro-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/ze-vaqueiro-1.jpg" alt="Zé Vaqueiro" loading="lazy"></a>
+<a href="fotos/shows/ze-vaqueiro-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/ze-vaqueiro-2.jpg" alt="Zé Vaqueiro" loading="lazy"></a>
+<a href="fotos/shows/ze-vaqueiro-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/ze-vaqueiro-3.jpg" alt="Zé Vaqueiro" loading="lazy"></a>
+<a href="fotos/shows/ze-vaqueiro-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/ze-vaqueiro-4.jpg" alt="Zé Vaqueiro" loading="lazy"></a>
+<a href="fotos/shows/ze-vaqueiro-5.jpg" target="_blank" rel="noopener" style="--r:0.684"><img src="fotos/shows/ze-vaqueiro-5.jpg" alt="Zé Vaqueiro" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Natanzinho Lima</h2></div>
+<div class="jg">
+<a href="fotos/shows/natanzinho-lima-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/natanzinho-lima-1.jpg" alt="Natanzinho Lima" loading="lazy"></a>
+<a href="fotos/shows/natanzinho-lima-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/natanzinho-lima-2.jpg" alt="Natanzinho Lima" loading="lazy"></a>
+<a href="fotos/shows/natanzinho-lima-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/natanzinho-lima-3.jpg" alt="Natanzinho Lima" loading="lazy"></a>
+<a href="fotos/shows/natanzinho-lima-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/natanzinho-lima-4.jpg" alt="Natanzinho Lima" loading="lazy"></a>
+<a href="fotos/shows/natanzinho-lima-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/natanzinho-lima-5.jpg" alt="Natanzinho Lima" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Calcinha Preta</h2><span class="g-meta">Murici, AL</span></div>
+<div class="jg">
+<a href="fotos/shows/show4-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show4-1.jpg" alt="Calcinha Preta" loading="lazy"></a>
+<a href="fotos/shows/show4-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show4-2.jpg" alt="Calcinha Preta" loading="lazy"></a>
+<a href="fotos/shows/show4-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show4-3.jpg" alt="Calcinha Preta" loading="lazy"></a>
+<a href="fotos/shows/show4-4.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show4-4.jpg" alt="Calcinha Preta" loading="lazy"></a>
+<a href="fotos/shows/show4-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show4-5.jpg" alt="Calcinha Preta" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Rodriguinho</h2><span class="g-meta">Pagode da Vovó, 15ª edição</span></div>
+<div class="jg">
+<a href="fotos/shows/show3-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show3-1.jpg" alt="Rodriguinho" loading="lazy"></a>
+<a href="fotos/shows/show3-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show3-2.jpg" alt="Rodriguinho" loading="lazy"></a>
+<a href="fotos/shows/show3-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show3-3.jpg" alt="Rodriguinho" loading="lazy"></a>
+<a href="fotos/shows/show3-4.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show3-4.jpg" alt="Rodriguinho" loading="lazy"></a>
+<a href="fotos/shows/show3-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show3-5.jpg" alt="Rodriguinho" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Igor Kannário</h2><span class="g-meta">F3 Produções</span></div>
+<div class="jg">
+<a href="fotos/shows/show2-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show2-1.jpg" alt="Igor Kannário" loading="lazy"></a>
+<a href="fotos/shows/show2-3.jpg" target="_blank" rel="noopener" style="--r:1.778"><img src="fotos/shows/show2-3.jpg" alt="Igor Kannário" loading="lazy"></a>
+<a href="fotos/shows/show2-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show2-4.jpg" alt="Igor Kannário" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Iguinho e Lulinha</h2></div>
+<div class="jg">
+<a href="fotos/shows/iguinho-e-lulinha-1.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/iguinho-e-lulinha-1.jpg" alt="Iguinho e Lulinha" loading="lazy"></a>
+<a href="fotos/shows/iguinho-e-lulinha-2.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/iguinho-e-lulinha-2.jpg" alt="Iguinho e Lulinha" loading="lazy"></a>
+<a href="fotos/shows/iguinho-e-lulinha-3.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/iguinho-e-lulinha-3.jpg" alt="Iguinho e Lulinha" loading="lazy"></a>
+<a href="fotos/shows/iguinho-e-lulinha-4.jpg" target="_blank" rel="noopener" style="--r:1.497"><img src="fotos/shows/iguinho-e-lulinha-4.jpg" alt="Iguinho e Lulinha" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Deivinho Novaes</h2></div>
+<div class="jg">
+<a href="fotos/shows/deivinho-novaes-1.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/deivinho-novaes-1.jpg" alt="Deivinho Novaes" loading="lazy"></a>
+<a href="fotos/shows/deivinho-novaes-2.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/deivinho-novaes-2.jpg" alt="Deivinho Novaes" loading="lazy"></a>
+<a href="fotos/shows/deivinho-novaes-3.jpg" target="_blank" rel="noopener" style="--r:0.668"><img src="fotos/shows/deivinho-novaes-3.jpg" alt="Deivinho Novaes" loading="lazy"></a>
+<a href="fotos/shows/deivinho-novaes-4.jpg" target="_blank" rel="noopener" style="--r:0.689"><img src="fotos/shows/deivinho-novaes-4.jpg" alt="Deivinho Novaes" loading="lazy"></a>
+<a href="fotos/shows/deivinho-novaes-5.jpg" target="_blank" rel="noopener" style="--r:1.497"><img src="fotos/shows/deivinho-novaes-5.jpg" alt="Deivinho Novaes" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Silvânia e Ber</h2></div>
+<div class="jg">
+<a href="fotos/shows/silvania-e-ber-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/silvania-e-ber-1.jpg" alt="Silvânia e Ber" loading="lazy"></a>
+<a href="fotos/shows/silvania-e-ber-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/silvania-e-ber-2.jpg" alt="Silvânia e Ber" loading="lazy"></a>
+<a href="fotos/shows/silvania-e-ber-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/silvania-e-ber-3.jpg" alt="Silvânia e Ber" loading="lazy"></a>
+<a href="fotos/shows/silvania-e-ber-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/silvania-e-ber-4.jpg" alt="Silvânia e Ber" loading="lazy"></a>
+<a href="fotos/shows/silvania-e-ber-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/silvania-e-ber-5.jpg" alt="Silvânia e Ber" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Toque Dez</h2><span class="g-meta">Areia Branca 2026</span></div>
+<div class="jg">
+<a href="fotos/shows/show1-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show1-3.jpg" alt="Toque Dez" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Henry Freitas</h2><span class="g-meta">Areia Branca 2026</span></div>
+<div class="jg">
+<a href="fotos/shows/show1-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/shows/show1-1.jpg" alt="Henry Freitas" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>F3 Produções</h2></div>
+<div class="jg">
+<a href="fotos/shows/show2-2.jpg" target="_blank" rel="noopener" style="--r:0.562"><img src="fotos/shows/show2-2.jpg" alt="F3 Produções" loading="lazy"></a>
+<a href="fotos/shows/show2-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/shows/show2-5.jpg" alt="F3 Produções" loading="lazy"></a>
+</div></div>
+</section>
+<section class="cat" id="cat-casamentos" data-label="Casamentos" hidden>
+<div class="group"><div class="g-head"><h2>Thales e Bruna</h2></div>
+<div class="jg">
+<a href="fotos/casamentos/cas1-1.jpg" target="_blank" rel="noopener" style="--r:0.562"><img src="fotos/casamentos/cas1-1.jpg" alt="Thales e Bruna" loading="lazy"></a>
+<a href="fotos/casamentos/cas1-2.jpg" target="_blank" rel="noopener" style="--r:1.778"><img src="fotos/casamentos/cas1-2.jpg" alt="Thales e Bruna" loading="lazy"></a>
+<a href="fotos/casamentos/cas1-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/casamentos/cas1-3.jpg" alt="Thales e Bruna" loading="lazy"></a>
+<a href="fotos/casamentos/cas1-4.jpg" target="_blank" rel="noopener" style="--r:0.562"><img src="fotos/casamentos/cas1-4.jpg" alt="Thales e Bruna" loading="lazy"></a>
+<a href="fotos/casamentos/cas1-5.jpg" target="_blank" rel="noopener" style="--r:0.562"><img src="fotos/casamentos/cas1-5.jpg" alt="Thales e Bruna" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Ana e Edson</h2></div>
+<div class="jg">
+<a href="fotos/casamentos/cas2-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas2-1.jpg" alt="Ana e Edson" loading="lazy"></a>
+<a href="fotos/casamentos/cas2-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas2-2.jpg" alt="Ana e Edson" loading="lazy"></a>
+<a href="fotos/casamentos/cas2-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/casamentos/cas2-3.jpg" alt="Ana e Edson" loading="lazy"></a>
+<a href="fotos/casamentos/cas2-4.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas2-4.jpg" alt="Ana e Edson" loading="lazy"></a>
+<a href="fotos/casamentos/cas2-5.jpg" target="_blank" rel="noopener" style="--r:1.778"><img src="fotos/casamentos/cas2-5.jpg" alt="Ana e Edson" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Gabi e Luan</h2></div>
+<div class="jg">
+<a href="fotos/casamentos/cas3-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas3-1.jpg" alt="Gabi e Luan" loading="lazy"></a>
+<a href="fotos/casamentos/cas3-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas3-2.jpg" alt="Gabi e Luan" loading="lazy"></a>
+<a href="fotos/casamentos/cas3-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas3-3.jpg" alt="Gabi e Luan" loading="lazy"></a>
+<a href="fotos/casamentos/cas3-4.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas3-4.jpg" alt="Gabi e Luan" loading="lazy"></a>
+<a href="fotos/casamentos/cas3-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/casamentos/cas3-5.jpg" alt="Gabi e Luan" loading="lazy"></a>
+</div></div>
+</section>
+<section class="cat" id="cat-eventos" data-label="Eventos" hidden>
+<div class="group"><div class="g-head"><h2>NTC, Outubro Rosa</h2></div>
+<div class="jg">
+<a href="fotos/eventos/ev1-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev1-1.jpg" alt="NTC, Outubro Rosa" loading="lazy"></a>
+<a href="fotos/eventos/ev1-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev1-2.jpg" alt="NTC, Outubro Rosa" loading="lazy"></a>
+<a href="fotos/eventos/ev1-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev1-3.jpg" alt="NTC, Outubro Rosa" loading="lazy"></a>
+<a href="fotos/eventos/ev1-4.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev1-4.jpg" alt="NTC, Outubro Rosa" loading="lazy"></a>
+<a href="fotos/eventos/ev1-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev1-5.jpg" alt="NTC, Outubro Rosa" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Santorini Lounge</h2><span class="g-meta">Aracaju</span></div>
+<div class="jg">
+<a href="fotos/eventos/ev2-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev2-1.jpg" alt="Santorini Lounge" loading="lazy"></a>
+<a href="fotos/eventos/ev2-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev2-2.jpg" alt="Santorini Lounge" loading="lazy"></a>
+<a href="fotos/eventos/ev2-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev2-3.jpg" alt="Santorini Lounge" loading="lazy"></a>
+<a href="fotos/eventos/ev2-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev2-4.jpg" alt="Santorini Lounge" loading="lazy"></a>
+<a href="fotos/eventos/ev2-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev2-5.jpg" alt="Santorini Lounge" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Atena, campeonato de motocross</h2><span class="g-meta">Umbaúba</span></div>
+<div class="jg">
+<a href="fotos/eventos/ev3-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev3-1.jpg" alt="Atena, campeonato de motocross" loading="lazy"></a>
+<a href="fotos/eventos/ev3-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev3-2.jpg" alt="Atena, campeonato de motocross" loading="lazy"></a>
+<a href="fotos/eventos/ev3-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev3-3.jpg" alt="Atena, campeonato de motocross" loading="lazy"></a>
+<a href="fotos/eventos/ev3-4.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev3-4.jpg" alt="Atena, campeonato de motocross" loading="lazy"></a>
+<a href="fotos/eventos/ev3-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev3-5.jpg" alt="Atena, campeonato de motocross" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Samba de Jorge</h2></div>
+<div class="jg">
+<a href="fotos/eventos/ev4-1.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev4-1.jpg" alt="Samba de Jorge" loading="lazy"></a>
+<a href="fotos/eventos/ev4-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/eventos/ev4-2.jpg" alt="Samba de Jorge" loading="lazy"></a>
+<a href="fotos/eventos/ev4-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev4-3.jpg" alt="Samba de Jorge" loading="lazy"></a>
+<a href="fotos/eventos/ev4-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev4-4.jpg" alt="Samba de Jorge" loading="lazy"></a>
+<a href="fotos/eventos/ev4-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/eventos/ev4-5.jpg" alt="Samba de Jorge" loading="lazy"></a>
+</div></div>
+</section>
+<section class="cat" id="cat-aniversarios" data-label="Aniversários" hidden>
+<div class="group"><div class="g-head"><h2>Leonardo, 1 ano</h2></div>
+<div class="jg">
+<a href="fotos/aniversarios/ani1-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani1-1.jpg" alt="Leonardo, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani1-2.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani1-2.jpg" alt="Leonardo, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani1-3.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani1-3.jpg" alt="Leonardo, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani1-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani1-4.jpg" alt="Leonardo, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani1-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani1-5.jpg" alt="Leonardo, 1 ano" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Ana Liz, 1 ano</h2></div>
+<div class="jg">
+<a href="fotos/aniversarios/ani2-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani2-1.jpg" alt="Ana Liz, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani2-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani2-2.jpg" alt="Ana Liz, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani2-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani2-3.jpg" alt="Ana Liz, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani2-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani2-4.jpg" alt="Ana Liz, 1 ano" loading="lazy"></a>
+<a href="fotos/aniversarios/ani2-5.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani2-5.jpg" alt="Ana Liz, 1 ano" loading="lazy"></a>
+</div></div>
+<div class="group"><div class="g-head"><h2>Liz Maria</h2></div>
+<div class="jg">
+<a href="fotos/aniversarios/ani3-1.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani3-1.jpg" alt="Liz Maria" loading="lazy"></a>
+<a href="fotos/aniversarios/ani3-2.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani3-2.jpg" alt="Liz Maria" loading="lazy"></a>
+<a href="fotos/aniversarios/ani3-3.jpg" target="_blank" rel="noopener" style="--r:1.501"><img src="fotos/aniversarios/ani3-3.jpg" alt="Liz Maria" loading="lazy"></a>
+<a href="fotos/aniversarios/ani3-4.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani3-4.jpg" alt="Liz Maria" loading="lazy"></a>
+<a href="fotos/aniversarios/ani3-5.jpg" target="_blank" rel="noopener" style="--r:0.666"><img src="fotos/aniversarios/ani3-5.jpg" alt="Liz Maria" loading="lazy"></a>
+</div></div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Marcone Otávio</span>
+    <nav><a href="index.html">Início</a><a href="https://www.instagram.com/marcone.o/" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/5579996813130" target="_blank" rel="noopener">WhatsApp</a></nav>
+  </div>
+</footer>
+<script>
+  // abas: mostra só a categoria do endereço (#shows, #casamentos...), Shows por padrão
+  history.scrollRestoration = 'manual';
+  const cats = [...document.querySelectorAll('.cat')];
+  const tabs = [...document.querySelectorAll('.tabs a')];
+  function show() {
+    const key = location.hash.slice(1);
+    const cat = cats.find(c => c.id === 'cat-' + key) || cats[0];
+    cats.forEach(c => c.hidden = c !== cat);
+    tabs.forEach(t => t.classList.toggle('on', 'cat-' + t.dataset.cat === cat.id));
+    document.getElementById('titulo').textContent = cat.dataset.label;
+    window.scrollTo(0, 0);
+  }
+  addEventListener('hashchange', show);
+  show();
+</script>
+</body>
+</html>

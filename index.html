@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marcone Otávio · Foto e filme</title>
+<meta name="description" content="Fotografia e filmagem para eventos, casamentos e marcas.">
+<link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png">
+<link rel="apple-touch-icon" href="logos/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#121110;--fg:#ececec;--accent:#c2410c;--muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.12);--glass:rgba(28,26,24,.6)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 Syne,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 0% 50%,rgba(194,65,12,.22),transparent 70%);z-index:-1}
+a{color:inherit;text-decoration:none}
+.display{font-family:"League Gothic",Oswald,"Arial Narrow",sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;letter-spacing:.01em}
+.label{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.section{padding:140px 0}
+.muted{color:var(--muted)}
+
+/* abertura */
+.splash{position:fixed;inset:0;display:grid;place-content:center;gap:18px;background:var(--bg);z-index:50;transition:transform .9s cubic-bezier(.7,0,.2,1);cursor:pointer;text-align:center}
+.splash.gone{transform:translateY(-100%);pointer-events:none}
+.splash-logo{width:min(360px,72vw);height:auto}
+.brand img{height:24px;width:auto;display:block}
+@media (max-width:700px){.brand img{height:19px}}
+
+/* topo em pílula */
+.top{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(1100px,100% - 32px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:8px 8px 8px 24px;border-radius:999px;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);z-index:40}
+.links{display:flex;gap:26px;font-size:14.5px;font-weight:600}
+.links a:hover{color:var(--accent)}
+.brand{font-family:"League Gothic",sans-serif;font-size:28px;letter-spacing:.05em;text-transform:uppercase}
+.top .right{display:flex;justify-content:flex-end;align-items:center;gap:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:999px;transition:opacity .2s,transform .2s;white-space:nowrap}
+.btn:hover{opacity:.9;transform:translateY(-1px)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg)}
+.top .btn{padding:11px 20px;font-size:13.5px}
+
+/* hero */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:140px 0 90px;overflow:hidden}
+.hero .glow{position:absolute;inset:0;background:radial-gradient(45% 40% at 60% 40%,rgba(194,65,12,.45),transparent 70%);z-index:-1}
+.hero .hero-bg{position:absolute;inset:0;display:grid;place-items:center;z-index:-1;opacity:.35;filter:grayscale(1) blur(2px)}
+.hero h1{font-size:clamp(64px,14vw,210px);line-height:.88}
+.hero h1 .outline{color:transparent;-webkit-text-stroke:1px var(--fg)}
+.hero .sub{margin:28px 0 34px;color:var(--muted);font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+
+/* frase com revelação ao rolar */
+.statement{font-size:clamp(40px,6.2vw,92px);line-height:1;max-width:1100px;margin:0 auto;text-align:left}
+.statement .w{opacity:.22;transition:opacity .25s}
+
+/* colagem flutuante */
+.collage{position:relative;height:520px;margin:40px 0 0}
+.float{position:absolute;overflow:hidden;border-radius:14px;border:1px solid var(--line);will-change:transform}
+.ph{width:100%;height:100%;display:grid;place-items:center;background:linear-gradient(160deg,#2a2624,#1a1816);color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:12px}
+.g-or{background:linear-gradient(150deg,#7c2d12,#1c1917 70%)}
+.g-bl{background:linear-gradient(150deg,#1e3a5f,#0c0a09 70%)}
+.g-gr{background:linear-gradient(150deg,#3f3f46,#18181b 70%)}
+.g-su{background:linear-gradient(160deg,#c2410c,#44260f 60%,#121110)}
+
+/* frase fixada: as palavras acendem enquanto você rola */
+.pin{height:260vh;position:relative}
+.pin-inner{position:sticky;top:0;height:100vh;display:grid;place-items:center;padding:0 16px}
+
+/* logo 3D girando */
+.mark-wrap{perspective:900px;height:300px;display:grid;place-items:center;margin-bottom:40px}
+.mark3d{position:relative;width:240px;height:240px;transform-style:preserve-3d;animation:spin 9s linear infinite}
+.mark3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+@keyframes spin{to{transform:rotateY(360deg)}}
+@media (max-width:700px){.mark3d{width:170px;height:170px}.mark-wrap{height:220px}}
+@media (prefers-reduced-motion:reduce){.mark3d{animation:none}}
+
+/* marcas */
+.logos img{max-width:64%;max-height:60px;object-fit:contain;opacity:.85;transition:opacity .2s}
+.logos div:hover img{opacity:1}
+.logos{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.logos div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:130px;display:grid;place-items:center;font-family:"League Gothic",sans-serif;font-size:26px;text-transform:uppercase;letter-spacing:.06em;color:rgba(236,236,236,.55)}
+
+/* cabeçalho de seção */
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:64px;flex-wrap:wrap}
+.head h2{font-size:clamp(70px,12vw,170px);line-height:.85}
+.head a{font-size:15px;font-weight:600;border-bottom:1px solid var(--line);padding-bottom:4px}
+
+/* trabalhos alternados */
+.work{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;margin-bottom:140px}
+.work .card{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:18px;padding:44px;backdrop-filter:blur(8px);max-width:420px}
+.work.rev .card{margin-left:auto;text-align:right}
+/* carrossel: foto da frente colorida, as próximas empilhadas atrás em perspectiva */
+.deck{position:relative;aspect-ratio:4/5;perspective:1400px;z-index:1}
+.work.rev .deck{order:2}
+.deck img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;box-shadow:0 24px 50px rgba(0,0,0,.5);transform-origin:left center;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .7s,opacity .7s}
+.deck[data-dir="-1"] img{transform-origin:right center}
+.deck-nav{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:10px;z-index:40}
+.deck-nav button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.3);backdrop-filter:blur(6px);color:#fff;font-size:22px;line-height:1;cursor:pointer;transition:background .2s}
+.deck-nav button:hover{background:rgba(0,0,0,.6)}
+.deck-nav{opacity:0;transition:opacity .4s}
+.deck.open .deck-nav{opacity:1}
+.work{overflow-x:clip}
+@media (max-width:900px){.deck-nav{bottom:92px}}
+.work .card{position:relative;z-index:30;margin-left:-90px;background:rgba(18,17,16,.55);backdrop-filter:blur(16px)}
+.work.rev .card{margin-left:auto;margin-right:-90px}
+.work .num{font-family:"League Gothic",sans-serif;font-size:56px;color:var(--accent);line-height:1}
+.work h3{font-size:clamp(36px,4vw,52px);font-weight:600;letter-spacing:-.01em;margin:12px 0 14px}
+.work p{color:var(--muted);margin-bottom:22px}
+.work .more{font-weight:600;border-bottom:1px solid var(--line);padding-bottom:3px}
+
+/* fotos reais */
+.float img{width:100%;height:100%;object-fit:cover;display:block}
+.work .card .artists{margin:-10px 0 20px;gap:5px}
+.work .card .artists span{font-size:11.5px;padding:3px 9px}
+.work .card:has(.artists){max-width:470px;padding:34px}
+.about img.avatar{width:150px;height:150px;object-fit:cover;display:block}
+.bastidores{margin-top:56px}
+.b-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px}
+.b-grid figure{margin:0}
+.b-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;display:block}
+@media (max-width:700px){.b-grid{grid-template-columns:repeat(2,1fr)}}
+.ig{display:inline-block;margin-top:26px;font-weight:600;border-bottom:1px solid var(--line);padding-bottom:3px}
+.feature{border:1px solid var(--line);border-radius:18px;padding:40px;margin-bottom:32px;background:radial-gradient(60% 90% at 100% 0%,rgba(194,65,12,.28),transparent 70%),rgba(255,255,255,.02)}
+.feature h3{font-size:clamp(56px,9vw,120px);margin:10px 0 16px}
+.feature p.muted{max-width:560px}
+/* colunas na proporção dos vídeos (9:16, 4:3, 9:16) para ficarem da mesma altura */
+.reels{display:grid;grid-template-columns:1fr 2.37fr 1fr;gap:14px;margin-top:30px;align-items:start}
+.reels figure{position:relative;margin:0}
+.reels video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover;border-radius:14px;background:#000}
+.reels .wide video{aspect-ratio:4/3}
+.reels figcaption,.portfolio figcaption{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;pointer-events:none}
+.portfolio{margin-top:8px}
+.portfolio figure{position:relative;margin:0}
+.pf-h{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.pf-h .featured{grid-column:1/-1}
+.pf-v{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+.portfolio video{width:100%;display:block;aspect-ratio:16/9;object-fit:contain;border-radius:14px;background:#000}
+.pf-v video{aspect-ratio:9/16;object-fit:cover}
+@media (max-width:700px){.pf-h{grid-template-columns:1fr}.pf-v{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.reels{grid-template-columns:1fr 1fr}.reels .wide{grid-column:1/-1;order:3}}
+@media (max-width:700px){.feature{padding:28px}}
+.feature{scroll-margin-top:100px}
+/* destaque do ano no Sobre */
+.highlight{display:flex;gap:28px;align-items:flex-start;margin-top:40px;padding:28px 32px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:18px;background:linear-gradient(90deg,rgba(194,65,12,.2),rgba(255,255,255,.02) 60%)}
+.highlight .year{font-family:"League Gothic",sans-serif;font-size:clamp(64px,9vw,110px);line-height:.85;color:var(--accent)}
+.highlight .hl-list{display:flex;flex-direction:column;gap:22px;flex:1}
+.hl-item{display:flex;flex-direction:column;gap:6px}
+.hl-item + .hl-item{padding-top:22px;border-top:1px solid var(--line)}
+.hl-item strong{transition:color .2s}
+.hl-item:hover strong{color:var(--accent)}
+.highlight strong{font-size:clamp(24px,2.6vw,34px);font-weight:600;line-height:1.1}
+.highlight .more{font-weight:600;color:var(--accent);margin-top:6px}
+@media (max-width:700px){.highlight{flex-direction:column;align-items:flex-start;gap:10px;padding:24px}}
+
+/* sobre */
+.about{max-width:1100px;margin:0 auto}
+.about .avatar{width:110px;height:110px;border-radius:50%;border:1px solid var(--line);margin-bottom:28px;display:grid;place-items:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:linear-gradient(160deg,#2a2624,#1a1816)}
+.about p.big{font-size:clamp(28px,3.4vw,46px);line-height:1.2;font-weight:500;letter-spacing:-.01em}
+.about p.big .dim{color:rgba(236,236,236,.35)}
+.roles{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.roles span{border:1px solid var(--line);padding:9px 16px;border-radius:999px;font-size:14px}
+
+/* depoimentos em balões */
+.quotes{position:relative;border-radius:28px;overflow:hidden;padding:70px 40px;background:linear-gradient(170deg,#e0814a 0%,#7c2d12 45%,#1c1917 100%)}
+.quotes .bubbles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.bubble{background:rgba(255,255,255,.1);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:20px}
+.bubble header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.18)}
+.bubble .av{width:38px;height:38px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:700}
+.bubble small{display:block;color:rgba(255,255,255,.7);font-size:12.5px}
+.bubble .msg{background:rgba(0,0,0,.55);border-radius:14px;padding:14px 16px;font-size:15px}
+
+/* contato */
+.contact{text-align:center;position:relative;overflow:hidden;min-height:110vh;display:flex;align-items:center}
+/* fotos que aparecem e flutuam ao rolar até o contato */
+.contact-photos{position:absolute;inset:0;z-index:0;pointer-events:none}
+.contact-photos .float{z-index:1}
+.contact-photos .float.far{z-index:0;filter:blur(3px);opacity:.45}
+.contact-photos img{opacity:0;transform:scale(.9);transition:opacity .9s ease,transform .9s ease}
+.contact-photos.in img{opacity:1;transform:none}
+.contact .wrap{position:relative;z-index:2}
+@media (max-width:700px){.contact{min-height:100vh}.contact-photos .float:nth-child(n+6){display:none}}
+.contact h2{font-size:clamp(70px,13vw,190px);line-height:.85;margin:18px 0 40px}
+
+footer{border-top:1px solid var(--line);padding:40px 0;margin-top:80px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;font-size:14px}
+footer .links{font-weight:500;gap:10px 22px;flex-wrap:wrap}
+footer .small{color:var(--muted);font-size:13px;width:100%}
+
+@media (max-width:900px){
+  .links{display:none}
+  .top{grid-template-columns:1fr auto}
+  .top .brand{order:-1}
+  .work{grid-template-columns:1fr}
+  .work.rev .card{margin-left:0;text-align:left}
+  .work .card,.work.rev .card{margin:-70px 16px 0;max-width:none}
+  .work.rev .deck{order:0}
+  .quotes .bubbles{grid-template-columns:1fr}
+  .quotes{padding:40px 18px}
+  .collage{height:420px}
+  .logos{grid-template-columns:repeat(2,1fr)}
+  .section{padding:100px 0}
+  .head{align-items:flex-start}
+}
+@media (max-width:700px){
+  .top{top:10px;padding-left:16px}
+  .top .btn{font-size:12.5px;padding:9px 14px}
+  .top .brand{font-size:24px}
+  .top .right{justify-content:flex-end}
+  .collage .float:nth-child(n+4){display:none}
+  .work .card{padding:28px}
+}
+/* luz suave que segue o cursor */
+.cursor-glow{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;background:radial-gradient(circle,rgba(194,65,12,.3),rgba(194,65,12,.08) 40%,transparent 68%);pointer-events:none;z-index:-1;opacity:0;transition:opacity .4s}
+.cursor-glow.on{opacity:1}
+@media (hover:none){.cursor-glow{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.splash{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="glow" aria-hidden="true"></div>
+<div class="splash" id="splash" aria-hidden="true">
+  <img class="splash-logo" src="logos/conemaker-vertical.png" alt="coneMaker, Comunicação Audio Visual">
+  <p class="label">Role para entrar</p>
+</div>
+
+<header class="top">
+  <nav class="links">
+    <a href="#fotografia">Fotografia</a>
+    <a href="#video">Vídeo</a>
+    <a href="#sobre">Sobre</a>
+  </nav>
+  <a href="#inicio" class="brand"><img src="logos/conemaker-horizontal.png" alt="coneMaker, de Marcone Otávio"></a>
+  <div class="right">
+    <a href="#contato" class="btn">Orçar um projeto</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="glow"></div>
+    <div class="hero-bg"><img src="fotos/shows/show1-3.jpg" alt="" style="width:min(520px,90vw);height:70vh;object-fit:cover;border-radius:18px"></div>
+    <div class="wrap">
+      <h1 class="display">O momento,<br><span class="outline">em foto</span> e filme.</h1>
+      <p class="sub">Foto e filme por Marcone Otávio. Registro cuidadoso do que acontece e não volta.</p>
+      <div class="cta">
+        <a href="#contato" class="btn">Agendar uma data</a>
+        <a href="#fotografia" class="btn ghost">Ver trabalhos</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pin" id="frase">
+    <div class="pin-inner">
+      <p class="statement reveal">Cada cena, cada detalhe e cada gesto que ninguém quer perder. Eu registro com a câmera no lugar certo, na hora certa.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">`
+    <div class="wrap collage" aria-hidden="true">
+      <div class="float" data-speed="-0.12" style="left:0;top:20px;width:260px;height:340px"><img src="fotos/shows/show4-3.jpg" alt="" loading="lazy"></div>
+      <div class="float" data-speed="0.10" style="left:30%;top:140px;width:220px;height:280px"><img src="fotos/casamentos/cas3-4.jpg" alt="" loading="lazy"></div>
+      <div class="float" data-speed="-0.06" style="right:6%;top:0;width:240px;height:320px"><img src="fotos/eventos/ev3-1.jpg" alt="" loading="lazy"></div>
+      <div class="float" data-speed="0.14" style="right:24%;top:260px;width:280px;height:200px"><img src="fotos/shows/show3-3.jpg" alt="" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="wrap">
+      <p class="label" style="text-align:center">Marcas com quem já trabalhei</p>
+      <div class="mark-wrap" aria-hidden="true"><div class="mark3d" id="mark"></div></div>
+      <div class="logos">
+        <div><img src="logos/precaju.png" alt="Pré-Caju" loading="lazy"></div>
+        <div><img src="logos/rommanel.png" alt="Rommanel" loading="lazy"></div>
+        <div><img src="logos/amstel.svg" alt="Amstel" loading="lazy"></div>
+        <div><img src="logos/atena.png" alt="Atena Proteção Veicular" loading="lazy"></div>
+        <div><img src="logos/f3.png" alt="F3 Produções" loading="lazy"></div>
+        <div><img src="logos/folia.png" alt="Folia Entretenimento" loading="lazy"></div>
+        <div><img src="logos/santorini.png" alt="Santorini Lounge" loading="lazy"></div>
+        <div><img src="logos/snow.png" alt="Snow Filmes" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fotografia">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="display">Trabalhos.</h2>
+        <a href="https://www.instagram.com/marcone.o/" target="_blank" rel="noopener">Mais trabalhos no Instagram</a>
+      </div>
+
+      <article class="work">
+        <div class="deck" data-dir="1">
+          <img src="fotos/shows/show1-4.jpg" alt="Wesley Safadão no palco" loading="lazy">
+          <img src="fotos/shows/gusttavo-lima-4.jpg" alt="Gusttavo Lima no palco" loading="lazy">
+          <img src="fotos/shows/henrique-e-juliano-4.jpg" alt="Henrique & Juliano no palco" loading="lazy">
+          <img src="fotos/shows/nattan-1.jpg" alt="Nattan no palco" loading="lazy">
+          <img src="fotos/shows/mano-walter-2.jpg" alt="Mano Walter no palco" loading="lazy">
+          <img src="fotos/shows/show4-3.jpg" alt="Show da Calcinha Preta" loading="lazy">
+          <div class="deck-nav"><button class="prev" aria-label="Foto anterior">‹</button><button class="next" aria-label="Próxima foto">›</button></div>
+        </div>
+        <div class="card">
+          <span class="num">01</span>
+          <h3>Shows</h3>
+          <p>Palco, público e bastidores. Artistas que já fotografei:</p>
+          <div class="roles artists">
+            <span>Gusttavo Lima</span><span>Wesley Safadão</span><span>Henrique &amp; Juliano</span><span>Mano Walter</span><span>Nattan</span>
+            <span>Zé Vaqueiro</span><span>Natanzinho Lima</span><span>Calcinha Preta</span><span>Rodriguinho</span><span>Igor Kannário</span>
+            <span>Iguinho e Lulinha</span><span>Deivinho Novaes</span><span>Silvânia e Ber</span><span>Toque Dez</span><span>Henry Freitas</span>
+          </div>
+          <a href="galeria.html#shows" class="more">Ver galeria →</a>
+        </div>
+      </article>
+
+      <article class="work rev">
+        <div class="deck" data-dir="-1">
+          <img src="fotos/casamentos/cas2-3.jpg" alt="Beijo dos noivos" loading="lazy">
+          <img src="fotos/casamentos/cas3-4.jpg" alt="Noivos dançando" loading="lazy">
+          <img src="fotos/casamentos/cas1-4.jpg" alt="Noivos abraçados" loading="lazy">
+          <img src="fotos/casamentos/cas3-1.jpg" alt="Noiva sorrindo na janela" loading="lazy">
+          <img src="fotos/casamentos/cas2-5.jpg" alt="Noivos no altar" loading="lazy">
+          <img src="fotos/casamentos/cas1-2.jpg" alt="Daminha com a placa dos noivos" loading="lazy">
+          <div class="deck-nav"><button class="prev" aria-label="Foto anterior">‹</button><button class="next" aria-label="Próxima foto">›</button></div>
+        </div>
+        <div class="card">
+          <span class="num">02</span>
+          <h3>Casamentos</h3>
+          <p>Cerimônia, detalhes e festa. O dia contado por quem estava ali, perto, sem atrapalhar.</p>
+          <a href="galeria.html#casamentos" class="more">Ver galeria →</a>
+        </div>
+      </article>
+
+      <article class="work">
+        <div class="deck" data-dir="1">
+          <img src="fotos/eventos/ev3-3.jpg" alt="Largada de motocross" loading="lazy">
+          <img src="fotos/eventos/ev3-1.jpg" alt="Salto no motocross" loading="lazy">
+          <img src="fotos/eventos/ev1-2.jpg" alt="Convidadas no evento Outubro Rosa" loading="lazy">
+          <img src="fotos/eventos/ev2-1.jpg" alt="Cantora no Santorini Lounge" loading="lazy">
+          <img src="fotos/eventos/ev4-3.jpg" alt="Público no Samba de Jorge" loading="lazy">
+          <img src="fotos/eventos/ev2-4.jpg" alt="Convidada no Santorini Lounge" loading="lazy">
+          <div class="deck-nav"><button class="prev" aria-label="Foto anterior">‹</button><button class="next" aria-label="Próxima foto">›</button></div>
+        </div>
+        <div class="card">
+          <span class="num">03</span>
+          <h3>Eventos</h3>
+          <p>Lounges, campeonatos, ações de marca e festas. Do motocross ao Outubro Rosa.</p>
+          <a href="galeria.html#eventos" class="more">Ver galeria →</a>
+        </div>
+      </article>
+
+      <article class="work rev">
+        <div class="deck" data-dir="-1">
+          <img src="fotos/aniversarios/ani3-3.jpg" alt="Família com a aniversariante" loading="lazy">
+          <img src="fotos/aniversarios/ani1-3.jpg" alt="Família com o aniversariante" loading="lazy">
+          <img src="fotos/aniversarios/ani2-1.jpg" alt="Família com os personagens da festa" loading="lazy">
+          <img src="fotos/aniversarios/ani1-1.jpg" alt="Decoração da festa" loading="lazy">
+          <img src="fotos/aniversarios/ani3-4.jpg" alt="Aniversariante de vestido lilás" loading="lazy">
+          <img src="fotos/aniversarios/ani2-4.jpg" alt="Avó com a aniversariante" loading="lazy">
+          <div class="deck-nav"><button class="prev" aria-label="Foto anterior">‹</button><button class="next" aria-label="Próxima foto">›</button></div>
+        </div>
+        <div class="card">
+          <span class="num">04</span>
+          <h3>Aniversários</h3>
+          <p>Festas infantis e de família, com a decoração, os detalhes e quem importa.</p>
+          <a href="galeria.html#aniversarios" class="more">Ver galeria →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="display">Vídeo.</h2>
+        <a href="https://www.instagram.com/marcone.o/" target="_blank" rel="noopener">Mais vídeos no Instagram</a>
+      </div>
+      <article class="feature" id="precaju">
+        <p class="label">Destaque · Filmmaker</p>
+        <h3 class="display">Pré-Caju 2026</h3>
+        <p class="muted">Filmmaker pela produtora Snow Filmes no Pré-Caju 2026, em Aracaju. Captação dos shows de Ivete Sangalo, Léo Santana e Bell Marques, com palco, público e imagens aéreas.</p>
+        <div class="reels">
+          <figure><video src="videos/precaju-ivete-sangalo.mp4" poster="videos/precaju-ivete-sangalo.jpg" controls playsinline preload="none" aria-label="Vídeo do show de Ivete Sangalo no Pré-Caju 2026"></video><figcaption>Ivete Sangalo</figcaption></figure>
+          <figure class="wide"><video src="videos/precaju-leo-santana.mp4" poster="videos/precaju-leo-santana.jpg" controls playsinline preload="none" aria-label="Vídeo do show de Léo Santana no Pré-Caju 2026"></video><figcaption>Léo Santana</figcaption></figure>
+          <figure><video src="videos/precaju-bell-marques.mp4" poster="videos/precaju-bell-marques.jpg" controls playsinline preload="none" aria-label="Vídeo do show de Bell Marques no Pré-Caju 2026"></video><figcaption>Bell Marques</figcaption></figure>
+        </div>
+      </article>
+      <article class="portfolio">
+        <p class="label">Portfólio</p>
+        <div class="pf-h">
+          <figure class="featured"><video src="videos/portfolio-casamento-a-r.mp4" poster="videos/portfolio-casamento-a-r.jpg" controls playsinline preload="none" aria-label="Vídeo: filme de casamento A&amp;R"></video><figcaption>Filme de casamento A&amp;R</figcaption></figure>
+          <figure><video src="videos/portfolio-clipe-erick.mp4" poster="videos/portfolio-clipe-erick.jpg" controls playsinline preload="none" aria-label="Vídeo: clipe Erick"></video><figcaption>Clipe Erick</figcaption></figure>
+          <figure><video src="videos/portfolio-pocket-show-bga.mp4" poster="videos/portfolio-pocket-show-bga.jpg" controls playsinline preload="none" aria-label="Vídeo: pocket show BGA, Tô Chegando"></video><figcaption>Pocket show BGA, Tô Chegando</figcaption></figure>
+          <figure><video src="videos/portfolio-concerto.mp4" poster="videos/portfolio-concerto.jpg" controls playsinline preload="none" aria-label="Vídeo: concerto"></video><figcaption>Concerto</figcaption></figure>
+          <figure><video src="videos/portfolio-where-have-u-been.mp4" poster="videos/portfolio-where-have-u-been.jpg" controls playsinline preload="none" aria-label="Vídeo: Where Have U Been, 28BC"></video><figcaption>Where Have U Been, 28BC</figcaption></figure>
+          <figure><video src="videos/portfolio-corrida-duque-de-caxias-2025.mp4" poster="videos/portfolio-corrida-duque-de-caxias-2025.jpg" controls playsinline preload="none" aria-label="Vídeo: Corrida Duque de Caxias 2025"></video><figcaption>Corrida Duque de Caxias 2025</figcaption></figure>
+          <figure><video src="videos/portfolio-corrida-duque-de-caxias-final.mp4" poster="videos/portfolio-corrida-duque-de-caxias-final.jpg" controls playsinline preload="none" aria-label="Vídeo: Corrida Duque de Caxias, versão final"></video><figcaption>Corrida Duque de Caxias, versão final</figcaption></figure>
+        </div>
+        <div class="pf-v">
+          <figure><video src="videos/portfolio-marcela-rubbya.mp4" poster="videos/portfolio-marcela-rubbya.jpg" controls playsinline preload="none" aria-label="Vídeo: Marcela Rubbya, Verdadeiro Amor"></video><figcaption>Marcela Rubbya, Verdadeiro Amor</figcaption></figure>
+          <figure><video src="videos/portfolio-revelacao-baby-vieira.mp4" poster="videos/portfolio-revelacao-baby-vieira.jpg" controls playsinline preload="none" aria-label="Vídeo: revelação Baby Vieira"></video><figcaption>Revelação Baby Vieira</figcaption></figure>
+          <figure><video src="videos/portfolio-take-iguinho.mp4" poster="videos/portfolio-take-iguinho.jpg" controls playsinline preload="none" aria-label="Vídeo: Iguinho, take com minha câmera"></video><figcaption>Iguinho, take com minha câmera</figcaption></figure>
+          <figure><video src="videos/portfolio-maria-antonella.mp4" poster="videos/portfolio-maria-antonella.jpg" controls playsinline preload="none" aria-label="Vídeo: Maria Antonella"></video><figcaption>Maria Antonella</figcaption></figure>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="sobre">
+    <div class="wrap about">
+      <img class="avatar" src="fotos/sobre/perfil.jpg" alt="Marcone Otávio">
+      <p class="label">Quem está atrás da câmera</p>
+      <p class="big" style="margin-top:20px">Sou Marcone Otávio, fotógrafo e filmmaker. Registro shows, casamentos, aniversários, eventos de marca e esportes, do palco à pista. <span class="dim">Foto, vídeo e drone para contar o seu evento inteiro, do começo ao fim.</span></p>
+      <div class="highlight">
+        <span class="year">2026</span>
+        <div class="hl-list">
+          <span class="label">Destaques do ano</span>
+          <a class="hl-item" href="#precaju">
+            <strong>Pré-Caju 2026</strong>
+            <span class="muted">Filmmaker pela Snow Filmes na captação dos shows de Ivete Sangalo, Léo Santana e Bell Marques, em Aracaju.</span>
+            <span class="more">Ver os vídeos →</span>
+          </a>
+          <a class="hl-item" href="galeria.html#shows">
+            <strong>Areia Branca 2026</strong>
+            <span class="muted">Fotógrafo nos shows de Wesley Safadão, Zé Vaqueiro, Toque Dez e Henry Freitas.</span>
+            <span class="more">Ver as fotos →</span>
+          </a>
+        </div>
+      </div>
+      <div class="roles">
+        <span>Filmmaker</span>
+        <span>Fotógrafo</span>
+        <span>Shows e eventos</span>
+        <span>Filmagens aéreas</span>
+      </div>
+      <a class="ig" href="https://www.instagram.com/marcone.o/" target="_blank" rel="noopener">@marcone.o no Instagram →</a>
+      <div class="bastidores">
+        <p class="label">Bastidores</p>
+        <div class="b-grid">
+          <figure><img src="fotos/sobre/bastidores-1.jpg" alt="Marcone com a câmera no Pré-Caju" loading="lazy"></figure>
+          <figure><img src="fotos/sobre/bastidores-2.jpg" alt="Marcone com a câmera e a credencial de trabalho" loading="lazy"></figure>
+          <figure><img src="fotos/sobre/bastidores-3.jpg" alt="Marcone fotografando junto à grade do público" loading="lazy"></figure>
+          <figure><img src="fotos/sobre/bastidores-4.jpg" alt="Marcone fotografando numa festa de São João" loading="lazy"></figure>
+          <figure><img src="fotos/sobre/bastidores-5.jpg" alt="Marcone com a câmera de vídeo nos bastidores" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- shortcut: seção de depoimentos tirada até chegarem os reais; o estilo (.quotes, .bubble) continua no CSS para voltar com eles -->
+
+  <section class="section contact" id="contato">
+    <div class="contact-photos" aria-hidden="true">
+      <div class="float" data-speed="-0.25" style="left:3%;top:8%;width:clamp(110px,14vw,200px);aspect-ratio:0.666"><img src="fotos/shows/gusttavo-lima-4.jpg" alt="" loading="lazy"></div>
+      <div class="float far" data-speed="0.32" style="left:20%;top:2%;width:clamp(80px,9vw,130px);aspect-ratio:0.666"><img src="fotos/eventos/ev2-4.jpg" alt="" loading="lazy"></div>
+      <div class="float" data-speed="-0.15" style="right:3%;top:10%;width:clamp(110px,15vw,215px);aspect-ratio:0.668"><img src="fotos/shows/henrique-e-juliano-4.jpg" alt="" loading="lazy"></div>
+      <div class="float" data-speed="0.22" style="right:3%;top:74%;width:clamp(120px,15vw,210px);aspect-ratio:1.501"><img src="fotos/eventos/ev3-1.jpg" alt="" loading="lazy"></div>
+      <div class="float" data-speed="0.12" style="left:3%;top:72%;width:clamp(110px,13vw,185px);aspect-ratio:1.501"><img src="fotos/casamentos/cas3-4.jpg" alt="" loading="lazy"></div>
+      <div class="float far" data-speed="0.35" style="right:24%;top:1%;width:clamp(80px,8vw,120px);aspect-ratio:0.562"><img src="fotos/casamentos/cas1-4.jpg" alt="" loading="lazy"></div>
+      <div class="float far" data-speed="-0.3" style="left:28%;top:80%;width:clamp(110px,14vw,200px);aspect-ratio:1.501"><img src="fotos/shows/nattan-3.jpg" alt="" loading="lazy"></div>
+      <div class="float far" data-speed="-0.35" style="right:2%;top:42%;width:clamp(90px,10vw,150px);aspect-ratio:1.501"><img src="fotos/aniversarios/ani2-1.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="wrap">
+      <p class="label">Contato</p>
+      <h2 class="display">Vamos marcar<br>sua data.</h2>
+      <div class="cta">
+        <a href="https://wa.me/5579996813130" target="_blank" rel="noopener" class="btn">Chamar no WhatsApp</a>
+        <a href="mailto:marconeotavio@hotmail.com" class="btn ghost">Enviar um e-mail</a>
+        <a href="https://www.instagram.com/marcone.o/" target="_blank" rel="noopener" class="btn ghost">Instagram</a>
+      </div>
+      <p class="muted" style="margin-top:24px">(79) 9 9681-3130 · marconeotavio@hotmail.com · @marcone.o</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand"><img src="logos/conemaker-horizontal.png" alt="coneMaker"></span>
+    <nav class="links" style="display:flex">
+      <a href="#fotografia">Fotografia</a>
+      <a href="#video">Vídeo</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <a href="https://www.instagram.com/marcone.o/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/5579996813130" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+    <span class="small">© 2026 Marcone Otávio. Todos os direitos reservados.</span>
+  </div>
+</footer>
+
+<script>
+  // luz do cursor: acompanha o mouse, só em telas com ponteiro
+  const glow = document.getElementById('glow');
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    glow.classList.add('on');
+  }, { passive: true });
+  document.addEventListener('pointerleave', () => glow.classList.remove('on'));
+
+  // abertura: some ao rolar ou clicar
+  const splash = document.getElementById('splash');
+  const hide = () => splash.classList.add('gone');
+  splash.addEventListener('click', hide);
+  addEventListener('wheel', hide, { once: true, passive: true });
+  addEventListener('touchstart', hide, { once: true, passive: true });
+  addEventListener('scroll', () => { if (scrollY > 40) hide(); }, { passive: true });
+
+  // frase: cada palavra acende conforme a seção entra na tela
+  const reveals = [...document.querySelectorAll('.reveal')].map(el => {
+    const words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(w => `<span class="w">${w}</span>`).join(' ');
+    return { el, spans: [...el.querySelectorAll('.w')] };
+  });
+
+  // logo 3D: o ícone da coneMaker em camadas, as de trás mais escuras, girando por CSS
+  const mark = document.getElementById('mark');
+  for (let i = 0; i < 28; i++) {
+    const img = document.createElement('img');
+    img.src = 'logos/conemaker-icone.png';
+    img.alt = '';
+    img.style.transform = `translateZ(${(i - 14) * 1.3}px)`;
+    img.style.filter = `brightness(${(0.25 + 0.75 * (i / 27)).toFixed(2)})`;
+    mark.appendChild(img);
+  }
+
+  // carrossel de Trabalhos: parado, só a foto da frente em preto e branco;
+  // com o cursor (ou foco do teclado) na linha, ela ganha cor e as próximas abrem em leque atrás.
+  // Em telas de toque não há cursor, então o carrossel já fica aberto.
+  const canHover = matchMedia('(hover: hover)').matches;
+  document.querySelectorAll('.deck').forEach(deck => {
+    const imgs = [...deck.querySelectorAll('img')];
+    const dir = Number(deck.dataset.dir);
+    const row = deck.closest('.work');
+    let cur = 0, open = !canHover;
+    const render = () => {
+      deck.classList.toggle('open', open);
+      imgs.forEach((img, i) => {
+        const k = (i - cur + imgs.length) % imgs.length;
+        const d = Math.min(k, 4);
+        if (k === 0) {
+          img.style.transform = 'none';
+          img.style.filter = open ? 'none' : 'grayscale(1)';
+          img.style.opacity = 1;
+        } else {
+          img.style.transform = open ? `translateX(${dir * d * 16}%) translateZ(${-d * 110}px) rotateY(${-dir * 24}deg)` : 'none';
+          img.style.filter = 'grayscale(1) brightness(.7)';
+          img.style.opacity = open && k <= 3 ? 1 : 0;
+        }
+        img.style.zIndex = 20 - d;
+      });
+    };
+    const setOpen = v => { open = v; render(); };
+    if (canHover) {
+      row.addEventListener('mouseenter', () => setOpen(true));
+      row.addEventListener('mouseleave', () => setOpen(row.contains(document.activeElement)));
+      row.addEventListener('focusin', () => setOpen(true));
+      row.addEventListener('focusout', e => { if (!row.contains(e.relatedTarget)) setOpen(row.matches(':hover')); });
+    }
+    deck.querySelector('.prev').onclick = () => { cur = (cur - 1 + imgs.length) % imgs.length; render(); };
+    deck.querySelector('.next').onclick = () => { cur = (cur + 1) % imgs.length; render(); };
+    render();
+  });
+
+  // contato: as fotos aparecem uma a uma quando a seção entra na tela
+  const cphotos = document.querySelector('.contact-photos');
+  cphotos.querySelectorAll('img').forEach((im, i) => im.style.transitionDelay = (i * 0.08) + 's');
+  new IntersectionObserver(([en], ob) => { if (en.isIntersecting) { cphotos.classList.add('in'); ob.disconnect(); } }, { threshold: 0.15 }).observe(cphotos);
+
+  // colagem: fotos se movem em velocidades diferentes
+  const floats = [...document.querySelectorAll('.float')];
+
+  function update() {
+    const vh = innerHeight;
+    for (const { el, spans } of reveals) {
+      const pin = el.closest('.pin');
+      const r = (pin || el).getBoundingClientRect();
+      const p = pin
+        ? Math.min(1, Math.max(0, -r.top / (r.height - vh)))
+        : Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (vh * 0.5)));
+      spans.forEach((s, i) => { s.style.opacity = p > i / spans.length ? 1 : .22; });
+    }
+    for (const f of floats) {
+      const r = f.parentElement.getBoundingClientRect();
+      const offset = (r.top + r.height / 2 - vh / 2) * parseFloat(f.dataset.speed);
+      f.style.transform = `translateY(${offset}px)`;
+    }
+  }
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+</script>
+</body>
+</html>
