@@ -44,7 +44,13 @@ a{color:inherit;text-decoration:none}
 /* hero */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:140px 0 90px;overflow:hidden}
 .hero .glow{position:absolute;inset:0;background:radial-gradient(45% 40% at 60% 40%,rgba(137,207,240,.45),transparent 70%);z-index:-1}
-.hero .hero-bg{position:absolute;inset:0;display:grid;place-items:center;z-index:-1;opacity:.35;filter:grayscale(1) blur(2px)}
+.hero .hero-bg{position:absolute;inset:0;display:grid;place-items:center;z-index:-1;opacity:.5}
+.hero .cam{position:relative;width:min(520px,90vw);height:70vh;perspective:1200px;will-change:transform,filter}
+.hero .cam img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:18px;opacity:0;transition:opacity .5s ease}
+.hero .cam img.on{opacity:1}
+.hero .cam::after{content:"";position:absolute;inset:0;border-radius:18px;background:#fff;opacity:0;pointer-events:none}
+.hero .cam.click::after{animation:flash .32s ease-out}
+@keyframes flash{0%{opacity:.8}100%{opacity:0}}
 .hero h1{font-size:clamp(64px,14vw,210px);line-height:.88}
 .hero h1 .outline{color:transparent;-webkit-text-stroke:1px var(--fg)}
 .hero .sub{margin:28px 0 34px;color:var(--muted);font-size:17px}
@@ -262,7 +268,11 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
 <main>
   <section class="hero" id="inicio">
     <div class="glow"></div>
-    <div class="hero-bg"><img src="fotos/shows/show1-3.jpg" alt="" style="width:min(520px,90vw);height:70vh;object-fit:cover;border-radius:18px"></div>
+    <div class="hero-bg"><div class="cam">
+      <img src="fotos/sobre/bastidores-2.jpg" alt="" class="on">
+      <img src="fotos/sobre/bastidores-1.jpg" alt="">
+      <img src="fotos/sobre/bastidores-5.jpg" alt="">
+    </div></div>
     <div class="wrap">
       <h1 class="display">O momento,<br><span class="outline">em foto</span> e filme.</h1>
       <p class="sub">Foto e filme por Marcone Otávio. Registro cuidadoso do que acontece e não volta.</p>
@@ -650,6 +660,27 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
   }
   const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', schedule, { passive: true });
+
+  // hero: a câmera "clica" conforme você rola; cada rolagem troca de foto, gira e ganha cor
+  const cam = document.querySelector('.hero .cam');
+  if (cam && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const shots = [...cam.querySelectorAll('img')], hero = document.querySelector('.hero');
+    let qc = false;
+    const drawCam = () => {
+      qc = false;
+      const p = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight * 0.9)));
+      const k = Math.min(shots.length - 1, Math.floor(p * shots.length));
+      if (cam.dataset.k !== undefined && cam.dataset.k !== String(k)) {
+        cam.classList.remove('click'); void cam.offsetWidth; cam.classList.add('click');
+      }
+      cam.dataset.k = k;
+      shots.forEach((im, i) => im.classList.toggle('on', i === k));
+      cam.style.transform = `translate3d(0, ${p * -60}px, 0) rotateY(${p * -22}deg) scale(${1 + p * 0.06})`;
+      cam.style.filter = `grayscale(${1 - p})`;
+    };
+    addEventListener('scroll', () => { if (!qc) { qc = true; requestAnimationFrame(drawCam); } }, { passive: true });
+    drawCam();
+  }
   addEventListener('resize', schedule);
   schedule();
 </script>
