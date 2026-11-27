@@ -92,7 +92,15 @@ a{color:inherit;text-decoration:none}
 /* logo 3D girando */
 .mark-wrap{perspective:900px;height:300px;display:grid;place-items:center;margin-bottom:40px}
 .mark3d{position:relative;width:240px;height:240px;transform-style:preserve-3d;animation:spin 9s linear infinite}
-.mark3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.mark3d{--c1:#f4f6f8;--c2:#8d949b}
+.mark3d.laranja{--c1:#ffb38a;--c2:#d9480f}
+.mark3d.branca{--c1:#ffffff;--c2:#d9dde1}
+.mark3d.grafite{--c1:#7a7f85;--c2:#1f2124}
+.mark3d span{position:absolute;inset:0;-webkit-mask:url(logos/conemaker-icone.png) center/contain no-repeat;mask:url(logos/conemaker-icone.png) center/contain no-repeat;background:linear-gradient(135deg,var(--c1),var(--c2) 55%,var(--c1));filter:brightness(var(--b));transition:background .4s}
+.mark-ctrl{display:flex;flex-direction:column;align-items:center;gap:22px;margin:-6px 0 56px}
+.tones{display:flex;gap:12px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--glass)}
+.tones button{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.tones button.on{border-color:var(--fg)}
 @keyframes spin{to{transform:rotateY(360deg)}}
 @media (max-width:700px){.mark3d{width:170px;height:170px}.mark-wrap{height:220px}}
 @media (prefers-reduced-motion:reduce){.mark3d{animation:none}}
@@ -318,6 +326,15 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
     <div class="wrap">
       <p class="label" style="text-align:center">Marcas com quem já trabalhei</p>
       <div class="mark-wrap" aria-hidden="true"><div class="mark3d" id="mark"></div></div>
+      <div class="mark-ctrl">
+        <div class="tones" role="group" aria-label="Cor da logo">
+          <button class="on" data-t="" style="background:#c9c9c9" aria-label="Prata" aria-pressed="true"></button>
+          <button data-t="laranja" style="background:#e8571f" aria-label="Laranja"></button>
+          <button data-t="branca" style="background:#ffffff" aria-label="Branca"></button>
+          <button data-t="grafite" style="background:#3a3a3a" aria-label="Grafite"></button>
+        </div>
+        <a href="orcamento.html" class="btn">Quero minha marca aqui ›</a>
+      </div>
       <div class="logos">
         <div><img src="logos/precaju.png" alt="Pré-Caju" loading="lazy"></div>
         <div><img src="logos/rommanel.png" alt="Rommanel" loading="lazy"></div>
@@ -573,13 +590,15 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
   // logo 3D: o ícone da coneMaker em camadas, as de trás mais escuras, girando por CSS
   const mark = document.getElementById('mark');
   for (let i = 0; i < 28; i++) {
-    const img = document.createElement('img');
-    img.src = 'logos/conemaker-icone.png';
-    img.alt = '';
+    const img = document.createElement('span');
     img.style.transform = `translateZ(${(i - 14) * 1.3}px)`;
-    img.style.filter = `brightness(${(0.25 + 0.75 * (i / 27)).toFixed(2)})`;
+    img.style.setProperty('--b', (0.25 + 0.75 * (i / 27)).toFixed(2));
     mark.appendChild(img);
   }
+  document.querySelectorAll('.tones button').forEach(b => b.onclick = () => {
+    mark.className = 'mark3d ' + b.dataset.t;
+    document.querySelectorAll('.tones button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+  });
 
   // carrossel de Trabalhos: parado, só a foto da frente em preto e branco;
   // com o cursor (ou foco do teclado) na linha, ela ganha cor e as próximas abrem em leque atrás.
