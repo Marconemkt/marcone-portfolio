@@ -14,7 +14,9 @@
 :root{--bg:#0b0c0e;--fg:#ececec;--accent:#89cff0;--muted:rgba(255,255,255,.62);--line:rgba(255,255,255,.12);--glass:rgba(20,24,30,.6)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font:400 16px/1.6 Syne,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* clip (e não hidden) corta o leque dos carrosséis que passa da tela no celular sem quebrar as seções fixas */
+html{overflow-x:clip}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 Syne,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 0% 50%,rgba(137,207,240,.22),transparent 70%);z-index:-1}
 a{color:inherit;text-decoration:none}
 .display{font-family:"League Gothic",Oswald,"Arial Narrow",sans-serif;font-weight:400;text-transform:uppercase;line-height:.92;letter-spacing:.01em}
@@ -89,27 +91,35 @@ a{color:inherit;text-decoration:none}
 @media (max-width:700px){.drift .float:nth-child(n+11){display:none}}
 .pin-inner{position:sticky;top:0;height:100vh;display:grid;place-items:center;padding:0 16px}
 
-/* logo 3D girando */
-.mark-wrap{perspective:900px;height:300px;display:grid;place-items:center;margin-bottom:40px}
-.mark3d{position:relative;width:240px;height:240px;transform-style:preserve-3d;animation:spin 9s linear infinite}
-.mark3d{--c1:#f4f6f8;--c2:#8d949b}
-.mark3d.laranja{--c1:#ffb38a;--c2:#d9480f}
-.mark3d.branca{--c1:#ffffff;--c2:#d9dde1}
-.mark3d.grafite{--c1:#7a7f85;--c2:#1f2124}
-.mark3d span{position:absolute;inset:0;-webkit-mask:url(logos/conemaker-icone.png) center/contain no-repeat;mask:url(logos/conemaker-icone.png) center/contain no-repeat;background:linear-gradient(135deg,var(--c1),var(--c2) 55%,var(--c1));filter:brightness(var(--b));transition:background .4s}
-.mark-ctrl{display:flex;flex-direction:column;align-items:center;gap:22px;margin:-6px 0 56px}
-.tones{display:flex;gap:12px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--glass)}
-.tones button{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer}
-.tones button.on{border-color:var(--fg)}
-@keyframes spin{to{transform:rotateY(360deg)}}
-@media (max-width:700px){.mark3d{width:170px;height:170px}.mark-wrap{height:220px}}
-@media (prefers-reduced-motion:reduce){.mark3d{animation:none}}
+/* marcas: a seção fica presa na tela; colunas de logos sobem em velocidades diferentes
+   e a logo 3D (three.js) gira no centro */
+.marcas{position:relative;height:240vh}
+.pino{position:sticky;top:0;height:100vh;overflow:hidden}
+.pino::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(to right,rgba(255,255,255,.06) 0 1px,transparent 1px calc(100% / 6));mask-image:linear-gradient(transparent,#000 22%,#000 78%,transparent);pointer-events:none}
+.colunas{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);pointer-events:none}
+.coluna{display:flex;flex-direction:column;align-items:center;gap:20vh;margin:0;padding:72vh 0 0;list-style:none;translate:0 calc(var(--p, 0) * var(--vel) * -1vh)}
+.coluna img{max-width:62%;max-height:56px;object-fit:contain;opacity:.8}
+.marcas-titulo{position:absolute;top:96px;left:0;right:0;text-align:center;z-index:3}
+.tela3d{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.logo-estatica{position:absolute;left:50%;top:46%;width:min(260px,52vw);translate:-50% -50%;z-index:2}
+.em-3d .logo-estatica{display:none}
+.marcas-ctrl{position:absolute;left:0;right:0;bottom:6vh;z-index:4;display:flex;flex-direction:column;align-items:center;gap:18px}
+.materiais{display:flex;gap:10px;padding:8px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .4s}
+.em-3d .materiais{opacity:1;pointer-events:auto}
+.materiais button{position:relative;width:16px;height:16px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:var(--cor);cursor:pointer;transition:scale .2s}
+.materiais button::after{content:"";position:absolute;inset:-7px}
+.materiais button:hover{scale:1.2}
+.materiais button[aria-checked="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--fg)}
+.pino.sobre-logo{cursor:grab}
+.pino.agarrando{cursor:grabbing}
+.em-3d .pino{touch-action:pan-y}
+@media (max-width:700px){.colunas{grid-template-columns:repeat(4,1fr)}.coluna:nth-child(n+5){display:none}.coluna{gap:16vh}.pino::before{background-image:repeating-linear-gradient(to right,rgba(255,255,255,.06) 0 1px,transparent 1px 25%)}}
+@media (prefers-reduced-motion:reduce){.coluna{translate:none}}
 
-/* marcas */
-.logos img{max-width:64%;max-height:60px;object-fit:contain;opacity:.85;transition:opacity .2s}
-.logos div:hover img{opacity:1}
-.logos{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.logos div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:130px;display:grid;place-items:center;font-family:"League Gothic",sans-serif;font-size:26px;text-transform:uppercase;letter-spacing:.06em;color:rgba(236,236,236,.55)}
+/* textos e blocos entram subindo e saindo do desfoque quando aparecem na tela */
+html.js [data-surgir]{transition:opacity 1.1s cubic-bezier(.16,1,.3,1),translate 1.1s cubic-bezier(.16,1,.3,1),filter 1.1s cubic-bezier(.16,1,.3,1);transition-delay:var(--atraso,0s)}
+html.js [data-surgir]:not(.surgiu):not(:focus-within){opacity:0;translate:0 1.75rem;filter:blur(10px)}
+@media (prefers-reduced-motion:reduce){html.js [data-surgir]:not(.surgiu){opacity:1;translate:none;filter:none}}
 
 /* cabeçalho de seção */
 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:64px;flex-wrap:wrap}
@@ -234,7 +244,6 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
   .quotes .bubbles{grid-template-columns:1fr}
   .quotes{padding:40px 18px}
   .collage{height:640px}
-  .logos{grid-template-columns:repeat(2,1fr)}
   .section{padding:100px 0}
   .head{align-items:flex-start}
 }
@@ -252,6 +261,8 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
 @media (hover:none){.cursor-glow{display:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.splash{transition:none}}
 </style>
+<script>document.documentElement.classList.add('js');</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
 
@@ -322,31 +333,51 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
   </section>
 
 
-  <section class="section" style="padding-top:40px">
-    <div class="wrap">
-      <p class="label" style="text-align:center">Marcas com quem já trabalhei</p>
-      <div class="mark-wrap" aria-hidden="true"><div class="mark3d" id="mark"></div></div>
-      <div class="mark-ctrl">
-        <div class="tones" role="group" aria-label="Cor da logo">
-          <button class="on" data-t="" style="background:#c9c9c9" aria-label="Prata" aria-pressed="true"></button>
-          <button data-t="laranja" style="background:#e8571f" aria-label="Laranja"></button>
-          <button data-t="branca" style="background:#ffffff" aria-label="Branca"></button>
-          <button data-t="grafite" style="background:#3a3a3a" aria-label="Grafite"></button>
+  <section class="marcas" id="marcas" data-progresso>
+    <div class="pino">
+      <div class="colunas">
+        <ul class="coluna" style="--vel:55">
+          <li><img src="logos/precaju.png" alt="Pré-Caju" loading="lazy"></li>
+          <li><img src="logos/f3.png" alt="F3 Produções" loading="lazy"></li>
+          <li><img src="logos/exercito.png" alt="Exército Brasileiro" loading="lazy"></li>
+        </ul>
+        <ul class="coluna" style="--vel:95">
+          <li><img src="logos/rommanel.png" alt="Rommanel" loading="lazy"></li>
+          <li><img src="logos/folia.png" alt="Folia Entretenimento" loading="lazy"></li>
+          <li><img src="logos/kamarote.png" alt="Kamarote Aracaju" loading="lazy"></li>
+        </ul>
+        <ul class="coluna" style="--vel:70">
+          <li><img src="logos/amstel.svg" alt="Amstel" loading="lazy"></li>
+          <li><img src="logos/santorini.png" alt="Santorini Lounge" loading="lazy"></li>
+          <li><img src="logos/snow.png" alt="Snow Filmes" loading="lazy"></li>
+        </ul>
+        <ul class="coluna" style="--vel:110">
+          <li><img src="logos/atena.png" alt="Atena Proteção Veicular" loading="lazy"></li>
+          <li><img src="logos/riomar.svg" alt="Shopping RioMar Aracaju" loading="lazy" style="filter:brightness(0) invert(1)"></li>
+          <li><img src="logos/precaju.png" alt="" loading="lazy"></li>
+        </ul>
+        <ul class="coluna" style="--vel:60">
+          <li><img src="logos/rommanel.png" alt="" loading="lazy"></li>
+          <li><img src="logos/amstel.svg" alt="" loading="lazy"></li>
+          <li><img src="logos/atena.png" alt="" loading="lazy"></li>
+        </ul>
+        <ul class="coluna" style="--vel:90">
+          <li><img src="logos/f3.png" alt="" loading="lazy"></li>
+          <li><img src="logos/folia.png" alt="" loading="lazy"></li>
+          <li><img src="logos/santorini.png" alt="" loading="lazy"></li>
+        </ul>
+      </div>
+      <p class="label marcas-titulo">Marcas com quem já trabalhei</p>
+      <img class="logo-estatica" src="logos/conemaker-icone.png" alt="" aria-hidden="true">
+      <canvas class="tela3d" aria-hidden="true"></canvas>
+      <div class="marcas-ctrl">
+        <div class="materiais" role="radiogroup" aria-label="Acabamento da logo">
+          <button role="radio" aria-checked="true" data-material="furtacor" style="--cor:linear-gradient(135deg,#d7e4ff,#f6d6ff 45%,#c9f3ea)" aria-label="Furta-cor"></button>
+          <button role="radio" aria-checked="false" data-material="laranja" style="--cor:#e8571f" aria-label="Laranja"></button>
+          <button role="radio" aria-checked="false" data-material="prata" style="--cor:#e9ebee" aria-label="Prata"></button>
+          <button role="radio" aria-checked="false" data-material="grafite" style="--cor:#3a3d42" aria-label="Grafite"></button>
         </div>
         <a href="orcamento.html" class="btn">Quero minha marca aqui ›</a>
-      </div>
-      <div class="logos">
-        <div><img src="logos/precaju.png" alt="Pré-Caju" loading="lazy"></div>
-        <div><img src="logos/rommanel.png" alt="Rommanel" loading="lazy"></div>
-        <div><img src="logos/amstel.svg" alt="Amstel" loading="lazy"></div>
-        <div><img src="logos/atena.png" alt="Atena Proteção Veicular" loading="lazy"></div>
-        <div><img src="logos/f3.png" alt="F3 Produções" loading="lazy"></div>
-        <div><img src="logos/folia.png" alt="Folia Entretenimento" loading="lazy"></div>
-        <div><img src="logos/santorini.png" alt="Santorini Lounge" loading="lazy"></div>
-        <div><img src="logos/riomar.svg" alt="Shopping RioMar Aracaju" loading="lazy" style="filter:brightness(0) invert(1)"></div>
-        <div><img src="logos/exercito.png" alt="Exército Brasileiro" loading="lazy"></div>
-        <div><img src="logos/kamarote.png" alt="Kamarote Aracaju" loading="lazy"></div>
-        <div><img src="logos/snow.png" alt="Snow Filmes" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -587,18 +618,37 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
     return { el, spans: [...el.querySelectorAll('.w')] };
   });
 
-  // logo 3D: o ícone da coneMaker em camadas, as de trás mais escuras, girando por CSS
-  const mark = document.getElementById('mark');
-  for (let i = 0; i < 28; i++) {
-    const img = document.createElement('span');
-    img.style.transform = `translateZ(${(i - 14) * 1.3}px)`;
-    img.style.setProperty('--b', (0.25 + 0.75 * (i / 27)).toFixed(2));
-    mark.appendChild(img);
+  // progresso da rolagem dentro de cada seção marcada (0 no começo, 1 no fim): vira --p no CSS
+  const comProgresso = [...document.querySelectorAll('[data-progresso]')];
+  if (comProgresso.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let qp = false;
+    const medir = () => {
+      qp = false;
+      for (const s of comProgresso) {
+        const r = s.getBoundingClientRect();
+        s.style.setProperty('--p', Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight))).toFixed(4));
+      }
+    };
+    const pedir = () => { if (!qp) { qp = true; requestAnimationFrame(medir); } };
+    medir();
+    addEventListener('scroll', pedir, { passive: true });
+    addEventListener('resize', pedir);
   }
-  document.querySelectorAll('.tones button').forEach(b => b.onclick = () => {
-    mark.className = 'mark3d ' + b.dataset.t;
-    document.querySelectorAll('.tones button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+
+  // entradas: títulos, textos e blocos sobem do desfoque quando chegam na tela, um depois do outro
+  const surgir = document.querySelectorAll('.head, .work .card, .highlight, .feature > h3, .feature > p, .reels figure, .portfolio figure, .about-lead, .about-sub, .roles, .ig, .bastidores .label, .b-grid figure, .b-pair figure, .marcas-titulo');
+  surgir.forEach(el => {
+    el.setAttribute('data-surgir', '');
+    const irmaos = [...el.parentElement.children].filter(x => x.hasAttribute('data-surgir'));
+    el.style.setProperty('--atraso', `${Math.min(0.4, irmaos.indexOf(el) * 0.08)}s`);
   });
+  if (!('IntersectionObserver' in window)) surgir.forEach(el => el.classList.add('surgiu'));
+  else {
+    const obs = new IntersectionObserver(es => {
+      for (const e of es) if (e.isIntersecting) { e.target.classList.add('surgiu'); obs.unobserve(e.target); }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    surgir.forEach(el => obs.observe(el));
+  }
 
   // carrossel de Trabalhos: parado, só a foto da frente em preto e branco;
   // com o cursor (ou foco do teclado) na linha, ela ganha cor e as próximas abrem em leque atrás.
@@ -650,7 +700,8 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
   // todas as leituras de posição antes das escritas (evita recalcular o layout a cada foto),
   // e só escreve no DOM quando o valor muda
   const pinOf = new Map(reveals.map(r => [r, r.el.closest('.pin')]));
-  const items = floats.map(f => ({ f, speed: parseFloat(f.dataset.speed), box: f.offsetParent, last: '' }));
+  // a caixa é o .drift (pai); offsetParent vira null nas fotos escondidas no celular e quebrava tudo
+  const items = floats.map(f => ({ f, speed: parseFloat(f.dataset.speed), box: f.parentElement, last: '' }));
   const boxesSet = [...new Set(items.map(it => it.box))];
   let queued = false;
 
@@ -703,5 +754,6 @@ footer .small{color:var(--muted);font-size:13px;width:100%}
   addEventListener('resize', schedule);
   schedule();
 </script>
+<script type="module" src="marcas3d.js"></script>
 </body>
 </html>
